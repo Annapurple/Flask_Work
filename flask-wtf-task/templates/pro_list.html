@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if par == 'ul' %}
+      <ul>
+      {% for i in list_prof %}
+        <li>{{ i }}</li>
+      {% endfor %}
+      </ul>
+    {% elif par == 'ol' %}
+      <ol>
+      {% for i in list_prof %}
+        <li>{{ i }}</li>
+      {% endfor %}
+      </ol>
+    {% else %}
+    <div>Неверный параметр</div>
+    {% endif %}
+
+{% endblock %}

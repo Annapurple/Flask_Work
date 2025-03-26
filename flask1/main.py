@@ -13,8 +13,6 @@ def text():
 def index(title):
     param = {}
     param['title'] = title
-    param['headline'] = "Миссия Колонизация Марса"
-    param['text'] = "И на Марсе будут яблони цвести!"
     return render_template('base.html', **param)
 
 
