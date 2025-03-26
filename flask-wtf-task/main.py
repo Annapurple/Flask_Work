@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template
+from flask import Flask, url_for, render_template, request, redirect
 from forms.loginform import LoginForm
 
 app = Flask(__name__, )
@@ -54,6 +54,17 @@ def ans():
 def login():
     form = LoginForm()
     return render_template("form.html", form=form, title='Авторизация')
+
+
+@app.route('/load_photo', methods=['POST', 'GET'])
+def sample_file_upload():
+    if request.method == 'GET':
+        return render_template('photo_form.html')
+    elif request.method == 'POST':
+        f = request.files['file']
+        with open("./static/images/temp/file.png", "wb") as file:
+            file.write(f.read())
+        return redirect(url_for('sample_file_upload'), 301)
 
 
 if __name__ == '__main__':
