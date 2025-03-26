@@ -2,9 +2,9 @@
 {% block content %}
     {% if "инженер" in prof or "строитель" in prof%}
         <div>Инженерные тренажеры</div>
-        <img src="\static\images\ship_it.png" width=30% height=30%>
+        <img src="{{ url_for('static', filename='./images/ship_it.png') }}" width=30% height=30%>
     {% else %}
         <div>Научные симуляторы</div>
-        <img src="\static\images\ship_ns.png" width=30% height=30%>
+        <img src="{{ url_for('static', filename='./images/ship_ns.png') }}" width=30% height=30%>
     {% endif %}
 {% endblock %}
