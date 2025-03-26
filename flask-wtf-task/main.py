@@ -1,6 +1,8 @@
 from flask import Flask, url_for, render_template
+from forms.loginform import LoginForm
 
-app = Flask(__name__)
+app = Flask(__name__, )
+app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 
 @app.route('/')
@@ -46,6 +48,12 @@ def ans():
     d['motivation'] = "Всегда мечтал застрять на Марсе!"
     d['ready'] = "True"
     return render_template('auto_answer.html', **d)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    return render_template("form.html", form=form, title='Авторизация')
 
 
 if __name__ == '__main__':
