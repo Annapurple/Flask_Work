@@ -53,6 +53,16 @@ def ans():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        id_u = form.id_user.data
+        password_u = form.password.data
+        id_c = form.id_captain.data
+        password_c = form.password_captain.data
+        print(id_u)
+        print(password_u)
+        print(id_c)
+        print(password_c)
+        return "Форма отправлена"
     return render_template("form.html", form=form, title='Авторизация')
 
 

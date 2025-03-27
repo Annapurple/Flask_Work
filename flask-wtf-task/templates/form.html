@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="top">
-    <img src="../static/images/MARS.png">
+    <img src="{{ url_for('static', filename='./images/MARS.png') }}">
     <h1>Аварийный доступ</h1>
 </div>
 <form action="" method="post" novalidate>
