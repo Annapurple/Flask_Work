@@ -1,7 +1,7 @@
 import secrets
 from datetime import datetime
 from flask import Flask, render_template, redirect
-from flask_login import login_user, LoginManager
+from flask_login import login_user, LoginManager, logout_user, login_required
 from forms.user import RegisterForm
 from forms.loginform import LoginForm
 from data import db_session
@@ -13,14 +13,19 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_hex(16)
 db_session.global_init("db/mars_explorer.db")
 
+login_manager = LoginManager()
+login_manager.init_app(app)
 
-# login_manager = LoginManager()
-# login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    db_sess = db_session.create_session()
+    return db_sess.query(User).get(user_id)
 
 
 @app.route('/')
 def text():
-    return 'Миссия колонизация марса'
+    return render_template('base.html', title='Миссия колонизация марса')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -65,6 +70,13 @@ def reqister():
         db_sess.commit()
         return redirect('/login')
     return render_template('register.html', title='Register form', form=form)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
 
 
 if __name__ == '__main__':
