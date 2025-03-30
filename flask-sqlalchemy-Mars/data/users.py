@@ -34,3 +34,4 @@ class User(SqlAlchemyBase, UserMixin):
     # def __repr__(self):
     #     return (f'<Colonist> {self.id} {self.surname} {self.name}')
 
+
