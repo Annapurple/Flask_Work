@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Works</h1>
+{% for i in job %}
+<h4>Action #{{i[0]}}</h4>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Activity</th>
+        <th>Team leader</th>
+        <th>Duration</th>
+        <th>List of collaborators</th>
+        <th>Finish</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{i[2]}}</td>
+        <td>{{use[i[1]]}}</td>
+        <td>{{i[3]}} hours</td>
+        <td>{{i[4]}}</td>
+        <td>{{i[5]}}</td>
+    </tr>
+    </tbody>
+</table>
+{% endfor %}
+{% endblock %}

@@ -21,17 +21,15 @@ class User(SqlAlchemyBase, UserMixin):
     modified_date = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
+
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.hashed_password, password)
 
-    # Старое переопределние для задания Модель Марсиане
-    # def __repr__(self):
-    #     return (f' {self.surname} {self.name} {self.age} {self.position} {self.speciality}\n\r'
-    #             f'{self.address} {self.email} {self.hashed_password}')
+    def __repr__(self):
+        return (f' {self.surname} {self.name} {self.age} {self.position} {self.speciality}\n\r'
+                f'{self.address} {self.email} {self.hashed_password}')
     # def __repr__(self):
     #     return (f'<Colonist> {self.id} {self.surname} {self.name}')
-
-

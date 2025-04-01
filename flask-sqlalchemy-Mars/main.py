@@ -25,7 +25,16 @@ def load_user(user_id):
 
 @app.route('/')
 def text():
-    return render_template('base.html', title='Миссия колонизация марса')
+    job = []
+    use = []
+    db_session.global_init(f"db/mars_explorer.db")
+    session = db_session.create_session()
+    jobs = session.query(Jobs).all()
+    for j in session.query(User).all():
+        use.append(f'{j.name} {j.surname}')
+    for i in jobs:
+        job.append(str(i).split('.'))
+    return render_template('main_page.html', title='Миссия колонизация марса', job=job, use=use)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -81,7 +90,7 @@ def logout():
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
-    # db_session.global_init(f"db/{base}")
+    # db_session.global_init(f"db/mars_explorer.db")
     # session = db_session.create_session()
     # user1 = User(surname="Scott", name="Ridley",
     #              age=21, position="captain", speciality="research engineer",
@@ -102,3 +111,7 @@ if __name__ == '__main__':
     # session.commit()
     # for user in session.query(User).filter(User.address == 'module_1'):
     #     print(user)
+    # job = Jobs(team_leader=1, job="Mars exploration",
+    #             work_size=5, collaborators="1, 2", start_date=datetime.now(), is_finished=False)
+    # session.add(job)
+    # session.commit()
