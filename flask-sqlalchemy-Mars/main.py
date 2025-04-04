@@ -1,7 +1,7 @@
 import secrets
 from datetime import datetime
 from flask import Flask, render_template, redirect
-from flask_login import login_user, LoginManager, logout_user, login_required
+from flask_login import login_user, LoginManager, logout_user, login_required, current_user
 from forms.user import RegisterForm
 from forms.loginform import LoginForm
 from data import db_session
@@ -25,16 +25,9 @@ def load_user(user_id):
 
 @app.route('/')
 def text():
-    job = []
-    use = []
-    db_session.global_init(f"db/mars_explorer.db")
-    session = db_session.create_session()
-    jobs = session.query(Jobs).all()
-    for j in session.query(User).all():
-        use.append(f'{j.name} {j.surname}')
-    for i in jobs:
-        job.append(str(i).split('.'))
-    return render_template('main_page.html', title='Миссия колонизация марса', job=job, use=use)
+    db_sess = db_session.create_session()
+    job = db_sess.query(Jobs).filter(Jobs.user)
+    return render_template("main_page.html", job=job)
 
 
 @app.route('/login', methods=['GET', 'POST'])

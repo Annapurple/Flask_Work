@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Works</h1>
 {% for i in job %}
-<h4>Action #{{i[0]}}</h4>
+<h4>Action #{{i.id}}</h4>
 <table border="1">
     <thead>
     <tr>
@@ -16,11 +16,11 @@
     </thead>
     <tbody>
     <tr>
-        <td>{{i[2]}}</td>
-        <td>{{use[i[1]]}}</td>
-        <td>{{i[3]}} hours</td>
-        <td>{{i[4]}}</td>
-        <td>{{i[5]}}</td>
+        <td>{{i.job}}</td>
+        <td>{{i.user.surname}} {{i.user.name}}</td>
+        <td>{{i.work_size}} hours</td>
+        <td>{{i.collaborators}}</td>
+        <td>{{i.is_finished}}</td>
     </tr>
     </tbody>
 </table>
