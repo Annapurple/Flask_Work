@@ -1,4 +1,6 @@
 import secrets
+from datetime import datetime
+
 from flask import Flask, render_template, redirect
 from flask_login import login_user, LoginManager, logout_user, login_required, current_user
 from forms.user import RegisterForm
@@ -102,11 +104,14 @@ def add_job():
                            form=form)
 
 
-
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
-    # db_session.global_init(f"db/{base}")
+    # db_session.global_init(f"db/mars_explorer.db")
     # session = db_session.create_session()
+    # job = Jobs(team_leader=1, job="Mars exploration",
+    #             work_size=5, collaborators="1, 2", start_date=datetime.now(), is_finished=False)
+    # session.add(job)
+    # session.commit()
     # user1 = User(surname="Scott", name="Ridley",
     #              age=21, position="captain", speciality="research engineer",
     #              address="module_1", email="scott_chief@mars.org")
