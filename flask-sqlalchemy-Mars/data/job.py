@@ -1,5 +1,7 @@
 import datetime
 import sqlalchemy
+from sqlalchemy import orm
+
 from .db_session import SqlAlchemyBase
 
 
@@ -14,6 +16,8 @@ class Jobs(SqlAlchemyBase):
     start_date = sqlalchemy.Column(sqlalchemy.DateTime, nullable=True)
     end_date = sqlalchemy.Column(sqlalchemy.DateTime, nullable=True)
     is_finished = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True)
-
-    def __repr__(self):
-        return (f'{self.team_leader} {self.job} {self.work_size} {self.collaborators} {self.is_finished}')
+    user = orm.relationship('User')
+    # def __repr__(self):
+    #     return (f'{self.team_leader} {self.job} {self.work_size} {self.collaborators} {self.is_finished}')
+    # def __repr__(self):
+    #     return (f'{self.id}.{self.team_leader}.{self.job}.{self.work_size}.{self.collaborators}.{self.is_finished}')

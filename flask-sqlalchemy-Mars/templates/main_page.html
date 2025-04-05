@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Works</h1>
+{% for i in job %}
+<h4>Action #{{i.id}}</h4>
+<table class="table table-striped" border="1">
+    <thead>
+    <tr>
+        <th>Activity</th>
+        <th>Team leader</th>
+        <th>Duration</th>
+        <th>List of collaborators</th>
+        <th>Finish</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{i.job}}</td>
+        <td>{{i.user.surname}} {{i.user.name}}</td>
+        <td>{{i.work_size}} hours</td>
+        <td>{{i.collaborators}}</td>
+        <td>{{i.is_finished}}</td>
+    </tr>
+    </tbody>
+</table>
+{% endfor %}
+{% endblock %}

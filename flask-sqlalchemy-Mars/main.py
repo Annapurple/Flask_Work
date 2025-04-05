@@ -1,12 +1,12 @@
 import secrets
-from datetime import datetime
 from flask import Flask, render_template, redirect
-from flask_login import login_user, LoginManager, logout_user, login_required
+from flask_login import login_user, LoginManager, logout_user, login_required, current_user
 from forms.user import RegisterForm
 from forms.loginform import LoginForm
 from data import db_session
 from data.users import User
 from data.job import Jobs
+from forms.jobform import JobsForm
 
 # base = input()
 app = Flask(__name__)
@@ -25,7 +25,9 @@ def load_user(user_id):
 
 @app.route('/')
 def text():
-    return render_template('base.html', title='Миссия колонизация марса')
+    db_sess = db_session.create_session()
+    job = db_sess.query(Jobs).filter(Jobs.user)
+    return render_template("main_page.html", job=job, title='Works')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -40,7 +42,7 @@ def login():
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
-    return render_template('login.html', title='Авторизация', form=form)
+    return render_template('login.html', title='Authorization', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -77,6 +79,27 @@ def reqister():
 def logout():
     logout_user()
     return redirect("/")
+
+
+@app.route('/job', methods=['GET', 'POST'])
+@login_required
+def add_job():
+    form = JobsForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        job = JobsForm()
+        job.title = form.title.data
+        job.team_leader_id = form.team_leader_id.data
+        job.work = form.work.data
+        job.collaborator = form.collaborator.data
+        job.is_job = form.is_job.data
+        job.submit = form.submit.data
+        # current_user.job.append(job)
+        # db_sess.merge(current_user)
+        # db_sess.commit()
+        return redirect('/')
+    return render_template('add_job.html', title='Добавление работы',
+                           form=form)
 
 
 if __name__ == '__main__':
