@@ -102,6 +102,7 @@ def add_job():
                            form=form)
 
 
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
     # db_session.global_init(f"db/{base}")
