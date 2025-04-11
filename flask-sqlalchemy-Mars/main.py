@@ -162,6 +162,7 @@ def jobs_delete(id):
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
+
     # db_session.global_init(f"db/mars_explorer.db")
     # session = db_session.create_session()
     # app.run(host='127.0.0.1', port=8080)
