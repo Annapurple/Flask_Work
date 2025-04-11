@@ -23,6 +23,7 @@ class User(SqlAlchemyBase, UserMixin):
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
     job = orm.relationship("Jobs", back_populates='user')
+
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)
 
@@ -34,5 +35,3 @@ class User(SqlAlchemyBase, UserMixin):
     #             f'{self.address} {self.email} {self.hashed_password}')
     # def __repr__(self):
     #     return (f'<Colonist> {self.id} {self.surname} {self.name}')
-
-
