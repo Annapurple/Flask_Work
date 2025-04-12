@@ -29,6 +29,7 @@ class User(SqlAlchemyBase, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.hashed_password, password)
+
     # Старое переопределние для задания Модель Марсиане
     # def __repr__(self):
     #     return (f' {self.surname} {self.name} {self.age} {self.position} {self.speciality}\n\r'
