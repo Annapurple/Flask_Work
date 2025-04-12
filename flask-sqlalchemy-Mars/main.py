@@ -1,7 +1,5 @@
 import secrets
 from datetime import datetime
-from enum import member
-
 from flask import Flask, render_template, redirect, abort, request
 from flask_login import login_user, LoginManager, logout_user, login_required, current_user
 from forms.user import RegisterForm
@@ -9,7 +7,6 @@ from forms.loginform import LoginForm
 from data import db_session
 from data.users import User
 from data.job import Jobs
-from data.departments import Department
 from forms.jobform import JobsForm
 
 # base = input()
