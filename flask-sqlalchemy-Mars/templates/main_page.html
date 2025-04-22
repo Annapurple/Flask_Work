@@ -24,14 +24,14 @@
     <tbody>
     <tr>
         <td>{{i.job}}</td>
-        <td>{{i.user.surname}} {{i.user.name}}</td>
+        <td>{{i.team_leader}} {{i.team_leader}}</td>
         <td>{{i.work_size}} hours</td>
         <td>{{i.collaborators}}</td>
         <td>{{i.is_finished}}</td>
     </tr>
     </tbody>
 </table>
-    {% if current_user.is_authenticated and (current_user == i.user or i.user.id == 1) %}
+{% if current_user.is_authenticated and (current_user.id == i.user.id or current_user.id == 1) %}
     <div>
         <a href="/job/{{ i.id }}" class="btn btn-warning">
             Изменить
