@@ -66,20 +66,24 @@ def login():
     return render_template("form.html", form=form, title='Авторизация')
 
 
+images = ['cat1.jpg', 'cat2.jpg', 'cat3.jpg', 'cat4.jpg', 'cat5.jpg']
+
+
 @app.route('/load_photo', methods=['POST', 'GET'])
 def sample_file_upload():
-    if request.method == 'GET':
-        return render_template('photo_form.html')
-    elif request.method == 'POST':
+    if request.method == 'POST':
         f = request.files['file']
-        with open("./static/images/temp/file.png", "wb") as file:
-            file.write(f.read())
-        return redirect(url_for('sample_file_upload'), 301)
+        if f:
+            filename = f.filename
+            images.append(filename)
+            f.save(f'static/images/carousel/{filename}')
+            return redirect(url_for('sample_file_upload'), 301)
+    return render_template('photo_form.html', images=images)
 
 
 @app.route('/carousel')
 def carousel():
-    return render_template('carousel_photo.html')
+    return render_template('carousel_photo.html', images=images)
 
 
 if __name__ == '__main__':
