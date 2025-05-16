@@ -30,8 +30,19 @@ def load_user(user_id):
 @app.route('/')
 def text():
     db_sess = db_session.create_session()
-    job = db_sess.query(Jobs).filter(Jobs.user)
-    return render_template("main_page.html", job=job, title='Works')
+    jobs = db_sess.query(Jobs).all()
+    leaders = []
+    new_jobs = []
+    for job in jobs:
+        j = job.to_dict(only=["id", "team_leader"])
+        tl = db_sess.query(User).filter(User.id == j["team_leader"]).first()
+        j["team_leader"] = tl.name + " " + tl.surname
+        j["id"] = tl.id
+        new_jobs.append(job)
+        leaders.append(j['team_leader'])
+        print(j['team_leader'])
+    return render_template("main_page.html", job=new_jobs, title='Works', leaders=leaders)
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
