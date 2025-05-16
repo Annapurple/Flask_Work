@@ -1,7 +1,6 @@
 import secrets
 from datetime import datetime
 
-
 from flask import Flask, render_template, redirect, abort, request
 from flask_login import login_user, LoginManager, logout_user, login_required, current_user
 from forms.user import RegisterForm
@@ -31,17 +30,16 @@ def load_user(user_id):
 def text():
     db_sess = db_session.create_session()
     jobs = db_sess.query(Jobs).all()
-    leaders = []
     new_jobs = []
     for job in jobs:
         j = job.to_dict(only=["id", "team_leader"])
         tl = db_sess.query(User).filter(User.id == j["team_leader"]).first()
         j["team_leader"] = tl.name + " " + tl.surname
         j["id"] = tl.id
-        new_jobs.append(job)
-        leaders.append(j['team_leader'])
-        print(j['team_leader'])
-    return render_template("main_page.html", job=new_jobs, title='Works', leaders=leaders)
+        new_jobs.append(j)
+        print(j)
+    print(new_jobs)
+    return render_template("main_page.html", job=new_jobs, title='Works')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -198,3 +196,22 @@ if __name__ == '__main__':
     # session.commit()
     # for user in session.query(User).filter(User.address == 'module_1'):
     #     print(user)
+
+
+
+# @app.route('/')
+# def text():
+#     db_sess = db_session.create_session()
+#     jobs = db_sess.query(Jobs).all()
+#     leaders = []
+#     new_jobs = []
+#     for job in jobs:
+#         j = job.to_dict(only=["id", "team_leader"])
+#         tl = db_sess.query(User).filter(User.id == j["team_leader"]).first()
+#         j["team_leader"] = tl.name + " " + tl.surname
+#         j["id"] = tl.id
+#         new_jobs.append(job)
+#         leaders.append(j['team_leader'])
+#         print(j['id'])
+#         print(j['team_leader'])
+#     return render_template("main_page.html", job=new_jobs, title='Works', leaders=leaders)
