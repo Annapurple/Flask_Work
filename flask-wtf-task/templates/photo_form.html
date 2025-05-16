@@ -1,12 +1,14 @@
 {% extends "base.html" %}
+
 {% block content %}
-    <h1>Загрузим файл</h1>
-    <form method="post" enctype="multipart/form-data" class="backgr">
-       <div class="form-group">
-            <label for="photo">Выберите файл</label>
-            <input type="file" class="form-control-file" id="photo" name="file">
-        </div>
-        <img src="./static/images/temp/file.png"><br>
-        <button type="submit" class="btn btn-primary">Отправить</button>
-    </form>
+<h1>Загрузим файл</h1>
+<form method="post" enctype="multipart/form-data" class="backgr">
+    <div class="form-group">
+        <label for="photo">Выберите файл</label>
+        <input type="file" class="form-control-file" id="photo" name="file" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>
+<br><a href="{{ url_for('carousel') }}" class="btn btn-secondary">Перейти к карусели</a>
+
 {% endblock %}
