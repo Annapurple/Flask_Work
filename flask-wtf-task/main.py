@@ -1,3 +1,5 @@
+import random
+import json
 from flask import Flask, url_for, render_template, request, redirect
 from forms.loginform import LoginForm
 
@@ -86,5 +88,14 @@ def carousel():
     return render_template('carousel_photo.html', images=images)
 
 
+@app.route('/member')
+def member():
+    with open('templates/crew.json', 'r', encoding='utf-8') as file:
+        crew_data = json.load(file)
+    selected_member = random.choice(crew_data)
+    sorted_specialties = sorted(selected_member["specialties"])
+    return render_template('member.html', member=selected_member, sorted_specialties=sorted_specialties)
+
+
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080)
+    app.run(host='127.0.0.1', port=8081)

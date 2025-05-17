@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Andy",
+        "surname": "Weir",
+        "photo": "/static/images/photo3.jpg",
+        "specialties": ["Engineer", "Builder"]
+    },
+    {
+        "name": "Sam",
+        "surname": "Rik",
+        "photo": "/static/images/photo1.png",
+        "specialties": ["Doctor", "Biologist"]
+    },
+    {
+        "name": "Jane",
+        "surname": "Ron",
+        "photo": "/static/images/photo2.png",
+        "specialties": ["Pilot"]
+    }
+]
